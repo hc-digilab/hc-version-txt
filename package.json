@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/hc-digilab/hc-version-txt/issues"
   },
-  "homepage": "https://github.com/hc-digilab/hc-version-txt#readme"
+  "homepage": "https://github.com/hc-digilab/hc-version-txt#readme",
+  "devDependencies": {
+    "jasmine": "^2.8.0",
+    "jasmine-spec-reporter": "^4.2.1"
+  }
 }
