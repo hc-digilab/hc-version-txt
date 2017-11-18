@@ -31,3 +31,9 @@ describe('versionBuilder.outputData.get.hash()', function() {
         expect(versionBuilder.outputData.get.hash()).toBeDefined();
     });
 });
+
+describe('versionBuilder.outputData.get.name()', function() {
+    it('expect version versionBuilder.outputData.get.name() to return company name', function() {
+        expect(versionBuilder.outputData.get.name()).toBeDefined();
+    });
+});
