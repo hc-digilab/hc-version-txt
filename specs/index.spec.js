@@ -33,7 +33,7 @@ describe('versionBuilder.outputData.get.hash()', function() {
 });
 
 describe('versionBuilder.outputData.get.name()', function() {
-    it('expect version versionBuilder.outputData.get.name() to return company name', function() {
-        expect(versionBuilder.outputData.get.name()).toBeDefined();
+    it('expect version versionBuilder.outputData.get.name() to return hc-digilab', function() {
+        expect(versionBuilder.outputData.get.name()).toEqual('hc-digilab');
     });
 });
