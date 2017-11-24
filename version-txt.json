@@ -1,4 +1,4 @@
 {
-    "name": "hc-digilab",
-    "dist": "dist/"
+    "projectName": "hc-digilab",
+    "distDirectory": "dist/"
 }

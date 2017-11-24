@@ -8,15 +8,13 @@ describe('versionBuilder.config', function() {
     it('expect versionBuilder.config.version to be hc-digilab', function() {
         expect(versionBuilder.config.author).toBe('hc-digilab');
     });
-});
 
-describe('versionBuilder.outputFile', function() {
-    it('expect versionBuilder.outputFile.src to be assets/version.txt', function() {
-        expect(versionBuilder.outputFile.src).toBe('assets/version.txt');
+    it('expect versionBuilder.config.fileSrc to be assets/version.txt', function() {
+        expect(versionBuilder.config.fileSrc).toBe('assets/version.txt');
     });
 
-    it('expect versionBuilder.outputFile.dist to be dist/', function() {
-        expect(versionBuilder.outputFile.dist).toBe('dist/');
+    it('expect versionBuilder.config.fileDist to be dist/', function() {
+        expect(versionBuilder.config.fileDist).toBe('dist/');
     });
 });
 

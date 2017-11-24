@@ -5,10 +5,11 @@ var fs     = require('fs'),
     git    = require('git-rev-sync'),
     moment = require('moment');
 
+
 // ---------------------------------------------------------------------------------------
 // Config Dependencies
 // ---------------------------------------------------------------------------------------
-var config = require('./version-txt');
+var projectConfig = require('./version-txt');
 
 // ---------------------------------------------------------------------------------------
 // Version Builder Module
@@ -17,7 +18,9 @@ var versionBuilder = {
 
     config: {
         version: '0.0.0',
-        author: 'hc-digilab'
+        author: 'hc-digilab',
+        fileSrc: 'assets/version.txt',
+        fileDist: projectConfig.distDirectory
     },
 
     outputData: {
@@ -29,17 +32,16 @@ var versionBuilder = {
                 return git.short();
             },
             name: function() {
-                return config.name;
+                return projectConfig.projectName;
             }
         }
     },
 
-    outputFile: {
-        src: 'assets/version.txt',
-        dist: config.dist
-    },
-
     buildFile: {
+
+        init: function() {
+            versionBuilder.buildFile.readSrcFile();
+        },
         
         readSrcFile: function() {
             versionBuilder.buildFile.updateFile(fs.readFileSync('assets/version.txt', encoding='utf8'));
