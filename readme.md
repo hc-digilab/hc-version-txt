@@ -7,3 +7,7 @@ to verify a deployment onto a server is successful.
 - node version >= 6.12.0
 
 # Configuration
+    {
+        "projectName": "hc-digilab",
+        "distDirectory": "dist/"
+    }
