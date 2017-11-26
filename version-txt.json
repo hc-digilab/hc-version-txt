@@ -1,4 +1,5 @@
 {
     "projectName": "hc-digilab",
-    "distDirectory": "dist/"
+    "distDirectory": "dist",
+    "distFilename": "version.txt"
 }
