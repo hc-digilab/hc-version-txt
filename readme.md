@@ -23,7 +23,8 @@ Add the following to your gulpfile.js:
         versionTxt.buildFile();
     });
 
-# Example output
+# Example output 
 Site: hc-digilab  
 Hash: 962e54c  
 Date: Sunday, November 26, 2017 4:04 PM  
+
