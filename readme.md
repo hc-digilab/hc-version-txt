@@ -12,3 +12,8 @@ to verify a deployment onto a server is successful.
         "distDirectory": "dist",
         "distFilename": "version.txt"
     }
+
+# Example output
+Site: hc-digilab  
+Hash: 962e54c  
+Date: Sunday, November 26, 2017 4:04 PM  
