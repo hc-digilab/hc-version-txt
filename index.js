@@ -11,8 +11,8 @@ var fs       = require('fs-extra'),
 // ---------------------------------------------------------------------------------------
 // Config Dependencies
 // ---------------------------------------------------------------------------------------
-var projectConfig = require(path.join(__dirname, 'version-txt.json')),
-    projectPath = process.cwd();
+var projectPath = process.cwd(),
+    projectConfig = require(path.join(projectPath, 'version-txt.json'));
 
 // ---------------------------------------------------------------------------------------
 // Version Builder Module
