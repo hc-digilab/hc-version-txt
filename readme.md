@@ -16,11 +16,12 @@ In the root of your project add a version-txt.json file and insert the following
     
 
 # Gulpfile task
-Add the following to your gulpfile.js:
-    var versionTxt = require('hc-version-txt');
+Add the following to your gulpfile.js:  
+    
+    var hcVersionTxt = require('hc-version-txt');
 
-    gulp.task('versionTxt', function() {
-        versionTxt.buildFile();
+    gulp.task('hcVersionTxt', function() {
+        hcVersionTxt.buildFile();
     });
 
 # Example output 
