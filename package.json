@@ -4,7 +4,8 @@
   "description": "Version txt file generator",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine --config=jasmine.json"
+    "test": "jasmine --config=jasmine.json",
+    "build": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,10 @@
     "jasmine-spec-reporter": "^4.2.1"
   },
   "dependencies": {
+    "fs-extra": "^4.0.2",
     "git-rev-sync": "^1.9.1",
-    "moment": "^2.19.2"
+    "git-state": "^4.0.0",
+    "moment": "^2.19.2",
+    "path": "^0.12.7"
   }
 }

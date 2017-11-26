@@ -1,15 +1,18 @@
 // ---------------------------------------------------------------------------------------
 // Module Dependencies
 // ---------------------------------------------------------------------------------------
-var fs     = require('fs'),
-    git    = require('git-rev-sync'),
-    moment = require('moment');
+var fs       = require('fs-extra'),
+    git      = require('git-rev-sync'),
+    gitState = require('git-state'), 
+    path     = require('path'),
+    moment   = require('moment');
 
 
 // ---------------------------------------------------------------------------------------
 // Config Dependencies
 // ---------------------------------------------------------------------------------------
-var projectConfig = require('./version-txt');
+var projectConfig = require(path.join(__dirname, 'version-txt.json')),
+    projectPath = process.cwd();
 
 // ---------------------------------------------------------------------------------------
 // Version Builder Module
@@ -18,55 +21,67 @@ var versionBuilder = {
 
     config: {
         version: '0.0.0',
-        author: 'hc-digilab',
-        fileSrc: 'assets/version.txt',
-        fileDist: projectConfig.distDirectory
+        author: 'hc-digilab'
     },
 
-    outputData: {
+    support: {
         get: {
             date: function() {
                 return moment().format('LLLL').toString();
             },
             hash: function() {
-                return git.short();
+                var hash;
+
+                if (gitState.isGitSync(projectPath)) {
+                    hash = git.short();
+                } else {
+                    hash = 'unavailable';
+                }
+
+                return hash;
             },
             name: function() {
                 return projectConfig.projectName;
+            },
+            fileSrc: function() {
+                return path.join(__dirname, 'assets/version.txt');
+            },
+            fileDist: function() {
+                return path.join(projectPath, projectConfig.distDirectory) + '/' + projectConfig.distFilename;
             }
         }
     },
 
-    buildFile: {
-
-        init: function() {
-            versionBuilder.buildFile.readSrcFile();
-        },
+    buildFile: function() {
+        try {
+            fs.readFile(versionBuilder.support.get.fileSrc(), encoding='utf8', function(err, data) {
+                
+                if (err) {
+                    return console.log(error);
+                }
+    
+                if (data) {
+                    if (data.indexOf('{{siteName}}') > -1) {
+                        data = data.replace('{{siteName}}', versionBuilder.support.get.name());
+                    }
         
-        readSrcFile: function() {
-            versionBuilder.buildFile.updateFile(fs.readFileSync('assets/version.txt', encoding='utf8'));
-        },
-
-        updateFile: function(data) {
-            if (data.indexOf('{{siteName}}') > -1) {
-                data = data.replace('{{siteName}}', versionBuilder.outputData.get.name());
-            }
-
-            if (data.indexOf('{{commitHash}}') > -1) {
-                data = data.replace('{{commitHash}}', versionBuilder.outputData.get.hash());
-            }
-
-            if (data.indexOf('{{buildDate}}') > -1) {
-                data = data.replace('{{buildDate}}', versionBuilder.outputData.get.date());
-            }
-
-            versionBuilder.buildFile.writeDistFile(data);
-        },
-
-        writeDistFile: function(data) {
-            fs.writeFileSync('output.txt', data, encoding='utf8');
+                    if (data.indexOf('{{commitHash}}') > -1) {
+                        data = data.replace('{{commitHash}}', versionBuilder.support.get.hash());
+                    }
+        
+                    if (data.indexOf('{{buildDate}}') > -1) {
+                        data = data.replace('{{buildDate}}', versionBuilder.support.get.date());
+                    }
+    
+                    fs.outputFileSync(versionBuilder.support.get.fileDist(), data, encoding='utf8');
+                }
+            });
+        } catch (ex) {
+            console.log(ex);
         }
     }
-};
+}
 
+// uncomment to test
+// versionBuilder.buildFile();
 module.exports = versionBuilder;

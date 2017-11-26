@@ -8,30 +8,28 @@ describe('versionBuilder.config', function() {
     it('expect versionBuilder.config.version to be hc-digilab', function() {
         expect(versionBuilder.config.author).toBe('hc-digilab');
     });
-
-    it('expect versionBuilder.config.fileSrc to be assets/version.txt', function() {
-        expect(versionBuilder.config.fileSrc).toBe('assets/version.txt');
-    });
-
-    it('expect versionBuilder.config.fileDist to be dist/', function() {
-        expect(versionBuilder.config.fileDist).toBe('dist/');
-    });
 });
 
-describe('versionBuilder.outputData.get.date()', function() {
-    it('expect version versionBuilder.outputData.get.date() to return date value', function() {
-        expect(versionBuilder.outputData.get.date()).toBeDefined();
-    });
-});
+describe('versionBuilder.support', function() {
 
-describe('versionBuilder.outputData.get.hash()', function() {
-    it('expect version versionBuilder.outputData.get.hash() to return hash value', function() {
-        expect(versionBuilder.outputData.get.hash()).toBeDefined();
+    it('expect version versionBuilder.support.get.date() to return date value', function() {
+        expect(versionBuilder.support.get.date()).toBeDefined();
     });
-});
 
-describe('versionBuilder.outputData.get.name()', function() {
-    it('expect version versionBuilder.outputData.get.name() to return hc-digilab', function() {
-        expect(versionBuilder.outputData.get.name()).toEqual('hc-digilab');
+    it('expect version versionBuilder.support.get.hash() to return hash value', function() {
+        expect(versionBuilder.support.get.hash()).toBeDefined();
+    });
+
+    it('expect version versionBuilder.support.get.name() to return hc-digilab', function() {
+        expect(versionBuilder.support.get.name()).toEqual('hc-digilab');
+    });
+
+    it('expect version versionBuilder.support.get.fileSrc() to return fileSrc path', function() {
+        expect(versionBuilder.support.get.fileSrc()).toEqual('/Users/CHHZ/Sites/hc-version-txt/assets/version.txt');
+    });
+
+    it('expect version versionBuilder.support.get.fileDist() to return fileDist path', function() {
+        // TODO: expected path should be more dynamic?
+        expect(versionBuilder.support.get.fileDist()).toEqual('/Users/CHHZ/Sites/hc-version-txt/dist/version.txt');
     });
 });
