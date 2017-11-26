@@ -9,5 +9,6 @@ to verify a deployment onto a server is successful.
 # Configuration
     {
         "projectName": "hc-digilab",
-        "distDirectory": "dist/"
+        "distDirectory": "dist",
+        "distFilename": "version.txt"
     }
