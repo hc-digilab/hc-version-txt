@@ -11,12 +11,12 @@ npm install hc-version-txt --save
 ```
 
 # Configuration
-In the root of your project add a version-txt.json file and insert the following:  
+In the root of your project add a `.hc-version-txt.json` file and insert the following:  
 ```json
 {
-    "projectName": "hc-digilab",
-    "distDirectory": "dist",
-    "distFilename": "version.txt"
+    "name": "hc-digilab",
+    "location": "dist",
+    "filename": "version.txt"
 }
 ```
 
@@ -30,7 +30,8 @@ gulp.task('hcVersionTxt', function() {
 });
 ```
 
-# Example output 
+# Example output
 Site: hc-digilab  
 Hash: 962e54c  
-Date: Sunday, November 26, 2017 4:04 PM  
+Date: Sunday, November 26, 2017 4:04 PM
+Version: 1.0.0

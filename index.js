@@ -2,8 +2,7 @@
 // Module Dependencies
 // ---------------------------------------------------------------------------------------
 var fs       = require('fs-extra'),
-    git      = require('git-rev-sync'),
-    gitState = require('git-state'), 
+    gitState = require('git-state'),
     path     = require('path'),
     moment   = require('moment');
 
@@ -12,7 +11,7 @@ var fs       = require('fs-extra'),
 // Config Dependencies
 // ---------------------------------------------------------------------------------------
 var projectPath = process.cwd(),
-    projectConfig = require(path.join(projectPath, 'version-txt.json'));
+    projectConfig = require(path.join(projectPath, '.hc-version-txt.json'));
 
 // ---------------------------------------------------------------------------------------
 // Version Builder Module
@@ -30,55 +29,33 @@ var versionBuilder = {
                 return moment().format('LLLL').toString();
             },
             hash: function() {
-                var hash;
-
-                if (gitState.isGitSync(projectPath)) {
-                    hash = git.short();
-                } else {
-                    hash = 'unavailable';
-                }
-
-                return hash;
+                return gitState.commitSync(projectPath);
+            },
+            version: function() {
+                return gitState.branchSync(projectPath);
             },
             name: function() {
-                return projectConfig.projectName;
-            },
-            fileSrc: function() {
-                return path.join(__dirname, 'assets/version.txt');
+                return projectConfig.name;
             },
             fileDist: function() {
-                return path.join(projectPath, projectConfig.distDirectory) + '/' + projectConfig.distFilename;
+                return projectConfig.location + '/' + projectConfig.filename;
             }
         }
     },
 
     buildFile: function() {
-        try {
-            fs.readFile(versionBuilder.support.get.fileSrc(), encoding='utf8', function(err, data) {
-                
-                if (err) {
-                    return console.log(error);
-                }
-    
-                if (data) {
-                    if (data.indexOf('{{siteName}}') > -1) {
-                        data = data.replace('{{siteName}}', versionBuilder.support.get.name());
-                    }
-        
-                    if (data.indexOf('{{commitHash}}') > -1) {
-                        data = data.replace('{{commitHash}}', versionBuilder.support.get.hash());
-                    }
-        
-                    if (data.indexOf('{{buildDate}}') > -1) {
-                        data = data.replace('{{buildDate}}', versionBuilder.support.get.date());
-                    }
-    
-                    fs.outputFileSync(versionBuilder.support.get.fileDist(), data, encoding='utf8');
-                }
-            });
-        } catch (ex) {
-            console.log(ex);
-        }
+
+        var content =   'Site: ' + versionBuilder.support.get.name() + '\n' +
+                        'Hash: ' + versionBuilder.support.get.hash() + '\n' +
+                        'Date: ' + versionBuilder.support.get.date() + '\n' +
+                        'Version: ' + versionBuilder.support.get.version();
+
+        fs.writeFileSync(path.join(projectPath, versionBuilder.support.get.fileDist()), content, 'utf8', function(err) {
+            if(err) {
+                throw(err);
+            }
+        });
+
     }
 }
 

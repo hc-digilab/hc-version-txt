@@ -1,3 +1,0 @@
-Site: {{siteName}}
-Hash: {{commitHash}}
-Date: {{buildDate}}
