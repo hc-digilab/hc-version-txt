@@ -11,7 +11,7 @@ npm install hc-version-txt --save
 ```
 
 # Configuration
-In the root of your project add a ``.hc-version-txt.json` file and insert the following:  
+In the root of your project add a `.hc-version-txt.json` file and insert the following:  
 ```json
 {
     "name": "hc-digilab",
