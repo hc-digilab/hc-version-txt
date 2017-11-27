@@ -20,16 +20,12 @@ describe('versionBuilder.support', function() {
         expect(versionBuilder.support.get.hash()).toBeDefined();
     });
 
-    it('expect version versionBuilder.support.get.name() to return hc-digilab', function() {
-        expect(versionBuilder.support.get.name()).toEqual('hc-digilab');
+    it('expect version versionBuilder.support.get.name() to return name value', function() {
+        expect(versionBuilder.support.get.name()).toBeDefined();
     });
 
-    it('expect version versionBuilder.support.get.fileSrc() to return fileSrc path', function() {
-        expect(versionBuilder.support.get.fileSrc()).toEqual('/Users/CHHZ/Sites/hc-version-txt/assets/version.txt');
-    });
-
-    it('expect version versionBuilder.support.get.fileDist() to return fileDist path', function() {
-        // TODO: expected path should be more dynamic?
-        expect(versionBuilder.support.get.fileDist()).toEqual('/Users/CHHZ/Sites/hc-version-txt/dist/version.txt');
+    it('expect version versionBuilder.support.get.fileDist() to return path', function() {
+        expect(versionBuilder.support.get.fileDist()).toBeDefined();
+        expect(versionBuilder.support.get.fileDist()).toEqual('dist/version.txt');
     });
 });
