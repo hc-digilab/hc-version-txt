@@ -1,6 +1,6 @@
 {
   "name": "hc-version-txt",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Version txt file generator",
   "main": "index.js",
   "scripts": {

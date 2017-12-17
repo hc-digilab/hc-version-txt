@@ -83,5 +83,5 @@ var versionBuilder = {
 }
 
 // uncomment to test
-versionBuilder.buildFile();
-// module.exports = versionBuilder;
+// versionBuilder.buildFile();
+module.exports = versionBuilder;
