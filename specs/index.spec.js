@@ -25,11 +25,10 @@ describe('versionBuilder.support', function() {
     });
 
     it('expect version versionBuilder.support.get.fileSrc() to return fileSrc path', function() {
-        expect(versionBuilder.support.get.fileSrc()).toEqual('/Users/CHHZ/Sites/hc-version-txt/assets/version.txt');
+        expect(versionBuilder.support.get.fileSrc()).toContain('/assets/version.txt');
     });
 
     it('expect version versionBuilder.support.get.fileDist() to return fileDist path', function() {
-        // TODO: expected path should be more dynamic?
-        expect(versionBuilder.support.get.fileDist()).toEqual('/Users/CHHZ/Sites/hc-version-txt/dist/version.txt');
+        expect(versionBuilder.support.get.fileDist()).toContain('/dist/version.txt');
     });
 });
