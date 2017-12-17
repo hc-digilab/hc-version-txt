@@ -12,7 +12,7 @@ var fs       = require('fs-extra'),
 // Config Dependencies
 // ---------------------------------------------------------------------------------------
 var projectPath = process.cwd(),
-    projectConfig = require(path.join(projectPath, 'version-txt.json'));
+    projectConfig = require(path.join(projectPath, '.version-txt.json'));
 
 // ---------------------------------------------------------------------------------------
 // Version Builder Module
@@ -83,5 +83,5 @@ var versionBuilder = {
 }
 
 // uncomment to test
-// versionBuilder.buildFile();
-module.exports = versionBuilder;
+versionBuilder.buildFile();
+// module.exports = versionBuilder;
