@@ -1,0 +1,8 @@
+{
+    "site": "{{site}}",
+    "deployment": {
+        "date": "{{date}}",
+        "branch": "{{branch}}",
+        "hash": "{{hash}}"
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "HC Version Txt",
+    "description": "HC Version Txt Config Schema",
+    "type": "object",
+    "properties": {
+        "projectName": {
+            "description": "Project Name to be output into json/txt file to be built",
+            "type": "string"
+        },
+        "distDirectory": {
+            "description": "Output directory for the files to be built",
+            "type": "string"
+        },
+        "distFilename": {
+            "description": "Output filename for the files to be built",
+            "type": "string"
+        },
+        "distFiletypes": {
+            "description": "Output filetypes for the files to be built",
+            "type": "array"
+        }
+
+    },
+    "required": ["distDirectory", "distFilename", "distFiletypes"]
+}

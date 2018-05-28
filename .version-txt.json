@@ -1,5 +1,7 @@
 {
+    "$schema": "./assets/schema.json",
     "projectName": "hc-digilab",
     "distDirectory": "dist",
-    "distFilename": "version.txt"
+    "distFilename": "version",
+    "distFiletypes": ["json", "txt"]
 }
