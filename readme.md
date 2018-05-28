@@ -1,3 +1,7 @@
+[![npm](https://img.shields.io/badge/npm-%3E%3D5.0.0-brightgreen.svg)](https://npmjs.org/en/)
+[![node](https://img.shields.io/badge/node-%3E%3D8.0.0-brightgreen.svg)](https://nodejs.org/en/)
+[![Unit tests](https://img.shields.io/badge/Unit%20tests-passed-brightgreen.svg)](https://jasmine.github.io/)
+
 # Version txt/json
 A node module which generates a txt/json file in your distribution directory which in turn gets deployed to your server and could then be viewed e.g yourdomain.com/version.txt or yourdomain.com/version.json this will then allow you to verify your deployment onto a server.
 
@@ -12,10 +16,10 @@ npm install hc-version-txt --save
 # Configuration
 In the root of your project add a '.version-txt.json' file and insert the following:
 
-- projectName can be defined in the config file or passed in as a value through the hcVersionTxt.buildFile({ projectName: 'exampleName' }); function
+- projectName is required (can be defined in the config or passed in through buildFile({ projectName: 'example' }))
 - distDirectory is required
 - distFilename is required
-- distFiletypes is required and can be the following values ["json", "txt"] || ["json"] || ["txt"]
+- distFiletypes is required (can be the following values ["json", "txt"] || ["json"] || ["txt"]
 
 ```json
 {
@@ -38,7 +42,7 @@ gulp.task('hcVersionTxt', function() {
     hcVersionTxt.buildFile();
 
     // pass in the projectName as a parameter
-    hcVersionTxt.buildFile({ projectName: 'exampleName' });
+    hcVersionTxt.buildFile({ projectName: 'example' });
 });
 ```
 
@@ -51,7 +55,7 @@ const hcVersionTxt = require('hc-version-txt');
 hcVersionTxt.buildFile();
 
 // pass in the projectName as a parameter
-hcVersionTxt.buildFile({ projectName: 'exampleName' });
+hcVersionTxt.buildFile({ projectName: 'example' });
 ```
 
 
