@@ -1,5 +1,6 @@
 {
     "projectName": "hc-digilab",
     "distDirectory": "dist",
-    "distFilename": "version.txt"
+    "distFilename": "version",
+    "distTypes": ["json", "txt"]
 }

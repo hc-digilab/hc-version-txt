@@ -1,36 +1,30 @@
 // ---------------------------------------------------------------------------------------
 // Module Dependencies
 // ---------------------------------------------------------------------------------------
-var fs       = require('fs-extra'),
-    git      = require('git-rev-sync'),
-    gitState = require('git-state'), 
-    path     = require('path'),
-    moment   = require('moment');
-
+const fs       = require('fs-extra'),
+      git      = require('git-rev-sync'),
+      gitState = require('git-state'), 
+      path     = require('path'),
+      moment   = require('moment');
 
 // ---------------------------------------------------------------------------------------
 // Config Dependencies
 // ---------------------------------------------------------------------------------------
-var projectPath = process.cwd(),
-    projectConfig = require(path.join(projectPath, '.version-txt.json'));
+const projectPath = process.cwd(),
+      projectConfig = require(path.join(projectPath, '.version-txt.json'));
 
 // ---------------------------------------------------------------------------------------
 // Version Builder Module
 // ---------------------------------------------------------------------------------------
-var versionBuilder = {
-
-    config: {
-        version: '0.0.0',
-        author: 'hc-digilab'
-    },
+const versionBuilder = {
 
     support: {
         get: {
-            date: function() {
-                return moment().format('LLLL').toString();
+            date: () => {
+                return moment().format('DD/MM/YYYY HH:mmA').toString();
             },
-            hash: function() {
-                var hash;
+            hash: () => {
+                let hash;
 
                 if (gitState.isGitSync(projectPath)) {
                     hash = git.short();
@@ -40,42 +34,46 @@ var versionBuilder = {
 
                 return hash;
             },
-            name: function() {
+            branch: () => {
+                let branch;
+
+                if (gitState.isGitSync(projectPath)) {
+                    branch = git.branch();
+                } else {
+                    branch = 'unavailable';
+                }
+
+                return branch;
+            },
+            site: () => {
                 return projectConfig.projectName;
             },
-            fileSrc: function() {
-                return path.join(__dirname, 'assets/version.txt');
+            fileSrc: (fileType) => {
+                return path.join(__dirname, `assets/version.${fileType}`);
             },
-            fileDist: function() {
-                return path.join(projectPath, projectConfig.distDirectory) + '/' + projectConfig.distFilename;
+            fileDist: (fileType) => {
+                return `${path.join(projectPath, projectConfig.distDirectory)}/${projectConfig.distFilename}.${fileType}`;
             }
         }
     },
 
     buildFile: function() {
         try {
-            fs.readFile(versionBuilder.support.get.fileSrc(), encoding='utf8', function(err, data) {
-                
-                if (err) {
-                    return console.log(error);
-                }
-    
-                if (data) {
-                    if (data.indexOf('{{siteName}}') > -1) {
-                        data = data.replace('{{siteName}}', versionBuilder.support.get.name());
-                    }
-        
-                    if (data.indexOf('{{commitHash}}') > -1) {
-                        data = data.replace('{{commitHash}}', versionBuilder.support.get.hash());
-                    }
-        
-                    if (data.indexOf('{{buildDate}}') > -1) {
-                        data = data.replace('{{buildDate}}', versionBuilder.support.get.date());
-                    }
-    
-                    fs.outputFileSync(versionBuilder.support.get.fileDist(), data, encoding='utf8');
-                }
-            });
+
+            let data;
+
+            if (projectConfig.distTypes) {
+                projectConfig.distTypes.forEach((fileType) => {
+                    data = fs.readFileSync(versionBuilder.support.get.fileSrc(fileType), 'utf8');
+
+                    data = data.replace('{{site}}', versionBuilder.support.get.site());
+                    data = data.replace('{{date}}', versionBuilder.support.get.date());
+                    data = data.replace('{{hash}}', versionBuilder.support.get.hash());
+                    data = data.replace('{{branch}}', versionBuilder.support.get.branch());
+
+                    fs.outputFileSync(versionBuilder.support.get.fileDist(fileType), data, encoding='utf8');
+                });
+            }
         } catch (ex) {
             console.log(ex);
         }
@@ -83,5 +81,5 @@ var versionBuilder = {
 }
 
 // uncomment to test
-// versionBuilder.buildFile();
-module.exports = versionBuilder;
+versionBuilder.buildFile();
+// module.exports = versionBuilder;
