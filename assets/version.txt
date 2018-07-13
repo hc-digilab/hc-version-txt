@@ -4,4 +4,5 @@ Deployment
 Date: {{date}}
 Branch: {{branch}}
 Hash: {{hash}}
+{{customData}}
 

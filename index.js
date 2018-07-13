@@ -59,8 +59,33 @@ const versionBuilder = {
             fileSrc: (fileType) => {
                 return path.join(__dirname, `assets/version.${fileType}`);
             },
-            fileDist: (fileType) => {
-                return `${path.join(projectPath, projectConfig.distDirectory)}/${projectConfig.distFilename}.${fileType}`;
+            fileDist: (fileType, dynamicConfig) => {
+                let fileDistDir;
+
+                if (dynamicConfig && dynamicConfig.distDirectory) {
+                    fileDistDir = dynamicConfig.distDirectory;
+                } else {
+                    fileDistDir = projectConfig.distDirectory;
+                }
+
+                return `${path.join(projectPath, fileDistDir)}/${projectConfig.distFilename}.${fileType}`;
+            },
+            customData: (dynamicConfig) => {
+                let data;
+
+                if (dynamicConfig && dynamicConfig.customData) {
+                    data = [];
+
+                    Object.keys(dynamicConfig.customData).forEach((key) => {
+                        data.push(`${key}: ${dynamicConfig.customData[key]}`);
+                    });
+
+                    data = data.toString().replace(',', '\n');
+                } else {
+                    data = '';
+                }
+
+                return data;
             }
         }
     },
@@ -68,16 +93,17 @@ const versionBuilder = {
     buildFile: function(dynamicConfig = null) {
         try {
             let data;
-
+            
             projectConfig.distFiletypes.forEach((fileType) => {
                 data = fs.readFileSync(versionBuilder.support.get.fileSrc(fileType), 'utf8');
-
+                
                 data = data.replace('{{site}}', versionBuilder.support.get.site(dynamicConfig));
                 data = data.replace('{{date}}', versionBuilder.support.get.date());
                 data = data.replace('{{hash}}', versionBuilder.support.get.hash());
                 data = data.replace('{{branch}}', versionBuilder.support.get.branch());
+                data = data.replace('{{customData}}',  versionBuilder.support.get.customData(dynamicConfig));
 
-                fs.outputFileSync(versionBuilder.support.get.fileDist(fileType), data, encoding='utf8');
+                fs.outputFileSync(versionBuilder.support.get.fileDist(fileType, dynamicConfig), data, encoding='utf8');
             });
         } catch (ex) {
             console.log(ex);
@@ -86,5 +112,8 @@ const versionBuilder = {
 }
 
 // uncomment to test
-// versionBuilder.buildFile({ projectName: 'hc-digilab' });
+// versionBuilder.buildFile({ 
+//     projectName: 'hc-digilab',
+//     distDirectory: 'dist/hc-digilab'
+// });
 module.exports = versionBuilder;
