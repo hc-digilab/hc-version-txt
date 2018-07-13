@@ -16,8 +16,8 @@ npm install hc-version-txt --save
 # Configuration
 In the root of your project add a '.version-txt.json' file and insert the following:
 
-- projectName is required (can be defined in the config or passed in through buildFile({ projectName: 'example' }))
-- distDirectory is required
+- projectName is required (can be defined in the config or passed in through buildFile function)
+- distDirectory is required (can be defined in the config or passed in through buildFile function)
 - distFilename is required
 - distFiletypes is required (can be the following values ["json", "txt"] || ["json"] || ["txt"]
 
@@ -42,7 +42,11 @@ gulp.task('hcVersionTxt', function() {
     hcVersionTxt.buildFile();
 
     // pass in the projectName as a parameter
-    hcVersionTxt.buildFile({ projectName: 'example' });
+    // pass in the distDirectory as a parameter
+    hcVersionTxt.buildFile({ 
+        projectName: 'example',
+        distDirectory: 'dist/example'
+    });
 });
 ```
 
@@ -55,7 +59,11 @@ const hcVersionTxt = require('hc-version-txt');
 hcVersionTxt.buildFile();
 
 // pass in the projectName as a parameter
-hcVersionTxt.buildFile({ projectName: 'example' });
+// pass in the distDirectory as a parameter
+hcVersionTxt.buildFile({ 
+    projectName: 'example' ,
+    distDirectory: 'dist/example'
+});
 ```
 
 
