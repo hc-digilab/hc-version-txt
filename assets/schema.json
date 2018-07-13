@@ -22,5 +22,5 @@
         }
 
     },
-    "required": ["distDirectory", "distFilename", "distFiletypes"]
+    "required": ["distFilename", "distFiletypes"]
 }
